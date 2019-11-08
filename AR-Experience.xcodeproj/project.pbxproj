@@ -8,24 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E23C92372D24500ECD967 /* Extensions.swift */; };
+		CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC336D2369DAB7006A91AF /* Start.storyboard */; };
+		CD5E168A2375B6E40006448A /* Build.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16882375B6E30006448A /* Build.storyboard */; };
+		CD5E168C2375BB000006448A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E168B2375BB000006448A /* StartViewController.swift */; };
+		CD6985E7237341B000ECA2DD /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CD6985E6237341B000ECA2DD /* art.scnassets */; };
 		CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC33672369DAB7006A91AF /* AppDelegate.swift */; };
 		CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC33692369DAB7006A91AF /* SceneDelegate.swift */; };
-		CDFC336C2369DAB7006A91AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC336B2369DAB7006A91AF /* ViewController.swift */; };
-		CDFC336F2369DAB7006A91AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC336D2369DAB7006A91AF /* Main.storyboard */; };
-		CDFC33712369DAB7006A91AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDFC33702369DAB7006A91AF /* Assets.xcassets */; };
+		CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC336B2369DAB7006A91AF /* BuildViewController.swift */; };
 		CDFC33742369DAB7006A91AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC33722369DAB7006A91AF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CD3E23C92372D24500ECD967 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CD5E16862375B5EC0006448A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD5E16872375B60E0006448A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD5E16892375B6E40006448A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "AR-Experience/View/Base.lproj/Build.storyboard"; sourceTree = "<group>"; };
+		CD5E168B2375BB000006448A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		CD6985E6237341B000ECA2DD /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		CDFC33642369DAB7006A91AF /* AR-Experience.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Experience.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDFC33672369DAB7006A91AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDFC33692369DAB7006A91AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CDFC336B2369DAB7006A91AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CDFC336E2369DAB7006A91AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CDFC33702369DAB7006A91AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDFC336B2369DAB7006A91AF /* BuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildViewController.swift; sourceTree = "<group>"; };
+		CDFC336E2369DAB7006A91AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Start.storyboard; sourceTree = "<group>"; };
 		CDFC33732369DAB7006A91AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CDFC33752369DAB7006A91AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,10 +44,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD4BFB4C2375AC7900AA163A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CD5E168B2375BB000006448A /* StartViewController.swift */,
+				CDFC336B2369DAB7006A91AF /* BuildViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CD4BFB4D2375AC8100AA163A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CDFC33722369DAB7006A91AF /* LaunchScreen.storyboard */,
+				CDFC336D2369DAB7006A91AF /* Start.storyboard */,
+				CD5E16882375B6E30006448A /* Build.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD4BFB4E2375AC8800AA163A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CDFC33672369DAB7006A91AF /* AppDelegate.swift */,
+				CDFC33692369DAB7006A91AF /* SceneDelegate.swift */,
+				CD3E23C92372D24500ECD967 /* Extensions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CDFC335B2369DAB7006A91AF = {
 			isa = PBXGroup;
 			children = (
 				CDFC33662369DAB7006A91AF /* AR-Experience */,
+				CD5E16872375B60E0006448A /* Info.plist */,
 				CDFC33652369DAB7006A91AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,14 +93,11 @@
 		CDFC33662369DAB7006A91AF /* AR-Experience */ = {
 			isa = PBXGroup;
 			children = (
-				CDFC33672369DAB7006A91AF /* AppDelegate.swift */,
-				CDFC33692369DAB7006A91AF /* SceneDelegate.swift */,
-				CDFC336B2369DAB7006A91AF /* ViewController.swift */,
-				CDFC336D2369DAB7006A91AF /* Main.storyboard */,
-				CDFC33702369DAB7006A91AF /* Assets.xcassets */,
-				CDFC33722369DAB7006A91AF /* LaunchScreen.storyboard */,
-				CDFC33752369DAB7006A91AF /* Info.plist */,
-				CD3E23C92372D24500ECD967 /* Extensions.swift */,
+				CD4BFB4E2375AC8800AA163A /* Model */,
+				CD4BFB4D2375AC8100AA163A /* View */,
+				CD4BFB4C2375AC7900AA163A /* Controller */,
+				CD5E16862375B5EC0006448A /* Assets.xcassets */,
+				CD6985E6237341B000ECA2DD /* art.scnassets */,
 			);
 			path = "AR-Experience";
 			sourceTree = "<group>";
@@ -129,8 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDFC33742369DAB7006A91AF /* LaunchScreen.storyboard in Resources */,
-				CDFC33712369DAB7006A91AF /* Assets.xcassets in Resources */,
-				CDFC336F2369DAB7006A91AF /* Main.storyboard in Resources */,
+				CD6985E7237341B000ECA2DD /* art.scnassets in Resources */,
+				CD5E168A2375B6E40006448A /* Build.storyboard in Resources */,
+				CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +174,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDFC336C2369DAB7006A91AF /* ViewController.swift in Sources */,
+				CD5E168C2375BB000006448A /* StartViewController.swift in Sources */,
+				CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */,
 				CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */,
 				CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */,
 				CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */,
@@ -151,12 +185,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CDFC336D2369DAB7006A91AF /* Main.storyboard */ = {
+		CD5E16882375B6E30006448A /* Build.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD5E16892375B6E40006448A /* Base */,
+			);
+			name = Build.storyboard;
+			sourceTree = "<group>";
+		};
+		CDFC336D2369DAB7006A91AF /* Start.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CDFC336E2369DAB7006A91AF /* Base */,
 			);
-			name = Main.storyboard;
+			name = Start.storyboard;
 			sourceTree = "<group>";
 		};
 		CDFC33722369DAB7006A91AF /* LaunchScreen.storyboard */ = {
@@ -290,7 +332,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VFX889M75X;
-				INFOPLIST_FILE = "AR-Experience/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "pbq.AR-Experience";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,7 +350,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VFX889M75X;
-				INFOPLIST_FILE = "AR-Experience/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +358,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "pbq.AR-Experience";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
