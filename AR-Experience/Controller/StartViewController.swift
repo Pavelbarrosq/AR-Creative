@@ -32,11 +32,22 @@ class StartViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = titleArray[indexPath.row] as! String
+        cell?.textLabel?.text = titleArray[indexPath.row] as? String
         
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let storyBoard = UIStoryboard(name: "Start", bundle: nil)
+            let vc = storyBoard.instantiateViewController(identifier: "Build") as! BuildViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            
+            let storyBoard = UIStoryboard(name: "Start", bundle: nil)
+            let vc = storyBoard.instantiateViewController(identifier: "Paint") as! PaintViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+   }
 
-    
 }

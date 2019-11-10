@@ -12,6 +12,8 @@
 		CD5E168A2375B6E40006448A /* Build.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16882375B6E30006448A /* Build.storyboard */; };
 		CD5E168C2375BB000006448A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E168B2375BB000006448A /* StartViewController.swift */; };
 		CD6985E7237341B000ECA2DD /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CD6985E6237341B000ECA2DD /* art.scnassets */; };
+		CDF0548923780A190060F800 /* Paint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF0548723780A190060F800 /* Paint.storyboard */; };
+		CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF0548A23780A790060F800 /* PaintViewController.swift */; };
 		CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC33672369DAB7006A91AF /* AppDelegate.swift */; };
 		CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC33692369DAB7006A91AF /* SceneDelegate.swift */; };
 		CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC336B2369DAB7006A91AF /* BuildViewController.swift */; };
@@ -25,6 +27,8 @@
 		CD5E16892375B6E40006448A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "AR-Experience/View/Base.lproj/Build.storyboard"; sourceTree = "<group>"; };
 		CD5E168B2375BB000006448A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		CD6985E6237341B000ECA2DD /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		CDF0548823780A190060F800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "AR-Experience/View/Base.lproj/Paint.storyboard"; sourceTree = "<group>"; };
+		CDF0548A23780A790060F800 /* PaintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintViewController.swift; sourceTree = "<group>"; };
 		CDFC33642369DAB7006A91AF /* AR-Experience.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Experience.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDFC33672369DAB7006A91AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDFC33692369DAB7006A91AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,7 @@
 			children = (
 				CD5E168B2375BB000006448A /* StartViewController.swift */,
 				CDFC336B2369DAB7006A91AF /* BuildViewController.swift */,
+				CDF0548A23780A790060F800 /* PaintViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -59,6 +64,7 @@
 				CDFC33722369DAB7006A91AF /* LaunchScreen.storyboard */,
 				CDFC336D2369DAB7006A91AF /* Start.storyboard */,
 				CD5E16882375B6E30006448A /* Build.storyboard */,
+				CDF0548723780A190060F800 /* Paint.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -164,6 +170,7 @@
 				CD6985E7237341B000ECA2DD /* art.scnassets in Resources */,
 				CD5E168A2375B6E40006448A /* Build.storyboard in Resources */,
 				CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */,
+				CDF0548923780A190060F800 /* Paint.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD5E168C2375BB000006448A /* StartViewController.swift in Sources */,
+				CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */,
 				CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */,
 				CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */,
 				CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */,
@@ -191,6 +199,14 @@
 				CD5E16892375B6E40006448A /* Base */,
 			);
 			name = Build.storyboard;
+			sourceTree = "<group>";
+		};
+		CDF0548723780A190060F800 /* Paint.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDF0548823780A190060F800 /* Base */,
+			);
+			name = Paint.storyboard;
 			sourceTree = "<group>";
 		};
 		CDFC336D2369DAB7006A91AF /* Start.storyboard */ = {

@@ -18,6 +18,7 @@ import SceneKit
 class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
 
     @IBOutlet weak var arView: ARSCNView!
+    @IBOutlet weak var addButton: UIButton!
     var configuration = ARWorldTrackingConfiguration()
     
     override func viewDidLoad() {
@@ -35,11 +36,11 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
 //        arView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
 
     
-    @IBAction func addNodeButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func addNodeButtonPressed(_ sender: UIButton) {
         addCube()
     }
     
-    @IBAction func deleteSceneButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func deleteSceneButtonPressed(_ sender: UIButton) {
         resetScene()
     }
 
@@ -58,13 +59,14 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     }
     
     func addCube() {
-        
+        let CamPos = getCameraPos(sceneView: arView)
         let cubeNode = SCNNode()
         cubeNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.002)
-        cubeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-        let CamPos = getCameraPos(sceneView: arView)
+        cubeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
+        
         cubeNode.position = SCNVector3(CamPos.x, CamPos.y, CamPos.z)
         cubeNode.name = "cube"
+        
         cubeNode.physicsBody?.restitution = 0.8
         cubeNode.physicsBody?.mass = 0.5
         let cubeBodyShape = SCNPhysicsShape(geometry: cubeNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
@@ -200,6 +202,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             }
         }
     }
+    
     
     // MARK: - ScenePhysicsDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {

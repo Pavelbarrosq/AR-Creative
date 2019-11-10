@@ -10,7 +10,7 @@
         <!--Start View Controller-->
         <scene sceneID="jqX-Ji-D5Y">
             <objects>
-                <viewController storyboardIdentifier="Start" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lFh-mU-k5L" customClass="StartViewController" customModule="AR_Experience" sceneMemberID="viewController">
+                <viewController id="lFh-mU-k5L" customClass="StartViewController" customModule="AR_Experience" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bW0-aL-0yF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -59,27 +59,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJZ-4v-kiU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-482" y="137"/>
+            <point key="canvasLocation" x="-500" y="137.18140929535232"/>
         </scene>
-        <!--BuildViewController-->
+        <!--Build-->
         <scene sceneID="FAK-lT-1iC">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Build" storyboardName="Build" referencedIdentifier="BuildViewController" id="nhh-1d-HZx" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="Build" storyboardName="Build" id="nhh-1d-HZx" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Fbn-gx-WCI"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vVU-PO-1x9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="-28"/>
+            <point key="canvasLocation" x="252" y="-45.877061469265371"/>
         </scene>
-        <!--PaintViewController-->
-        <scene sceneID="3vx-MU-C9d">
+        <!--View Controller-->
+        <scene sceneID="gKp-e9-UOI">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Paint" storyboardName="Paint" referencedIdentifier="PaintViewController" id="lUg-uv-mW8" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="2XM-e1-ZVi"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ysl-GC-3bt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="wWO-5d-e5v" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cWv-37-RDK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="jI8-dt-dWZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="27F-0H-QI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="73"/>
+            <point key="canvasLocation" x="310" y="388"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vbb-77-8sN">
@@ -97,7 +102,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27E-HI-3s8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1510" y="137"/>
+            <point key="canvasLocation" x="-1439.2" y="137.18140929535232"/>
         </scene>
     </scenes>
 </document>
