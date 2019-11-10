@@ -99,8 +99,8 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         floorNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
         floorNode.geometry?.firstMaterial?.isDoubleSided = true
         floorNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-        let floorBodyShape = SCNPhysicsShape(geometry: floorNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
-        floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: floorBodyShape)
+//        let floorBodyShape = SCNPhysicsShape(geometry: floorNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
+        floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil) // or shape floorbodyshape
         floorNode.physicsBody?.categoryBitMask = Extensions.BodyType.floor.rawValue
 
         return floorNode
