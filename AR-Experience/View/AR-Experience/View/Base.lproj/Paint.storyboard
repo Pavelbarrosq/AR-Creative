@@ -19,16 +19,74 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNL-e6-kPE">
-                                <rect key="frame" x="160" y="592" width="55" height="55"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNL-e6-kPE">
+                                <rect key="frame" x="160" y="591.5" width="55" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                <state key="normal" title="🖌"/>
+                                <color key="tintColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" backgroundImage="pencil.circle.fill" catalog="system"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="jI8-dt-dWZ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Imc-TU-eLe">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="9q6-VD-7LQ">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="refreshScene:" destination="wWO-5d-e5v" id="wO5-jX-k7J"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="30G-f8-Jpi">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="kVs-hv-SYQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="5ff-ic-iSn">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="Ijx-0f-dLe"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="En5-R6-I4G">
+                                <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="9So-HW-ory"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="Vrc-La-ziC">
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="17S-2d-I1c"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="HCZ-to-hCK">
+                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="Nj9-Dy-vrP"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="WRZ-Lr-NVC">
+                                <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="X9c-jF-F7n"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="exl-iL-Gg4">
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="ZeD-e9-0Ix"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="●" id="dHE-oa-fOF">
+                                <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="chooseColor:" destination="wWO-5d-e5v" id="WNv-CV-Ccf"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="arView" destination="htq-d2-4tA" id="9sk-1k-lOe"/>
                         <outlet property="drawButton" destination="FNL-e6-kPE" id="uSg-nO-GK0"/>
@@ -36,7 +94,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27F-0H-QI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1248.8" y="387.25637181409297"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MJt-5I-bUa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DWT-xt-bYO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="blackTranslucent" id="hjV-ue-GYr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wWO-5d-e5v" kind="relationship" relationship="rootViewController" id="6jv-Ff-2tH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FMb-uq-Ehv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="309.60000000000002" y="387.25637181409297"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pencil.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>

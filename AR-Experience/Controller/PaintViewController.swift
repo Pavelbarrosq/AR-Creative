@@ -15,6 +15,8 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var drawButton: UIButton!
     @IBOutlet weak var arView: ARSCNView!
     var configuaration = ARWorldTrackingConfiguration()
+    let defaultColor = UIColor.white
+    var colorChoosen = UIColor()
     
     
     override func viewDidLoad() {
@@ -25,8 +27,21 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
         arView.debugOptions = [.showFeaturePoints]
         arView.session.run(configuaration, options: [])
         arView.autoenablesDefaultLighting = true
+        
+        colorChoosen = defaultColor
 
     }
+    
+    // MARK: - IBActions
+    
+    @IBAction func chooseColor(_ sender: UIBarButtonItem) {
+        colorChoosen = sender.tintColor!
+    }
+    
+    @IBAction func refreshScene(_ sender: UIBarButtonItem) {
+    }
+    
+    //MARK: - Funtions
     
     func getCurrentCamPos(sceneView: ARSCNView) -> SCNVector3 {
         if let pow = sceneView.pointOfView {
@@ -99,7 +114,7 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
             if self.drawButton.isHighlighted {
                 
                 let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.01))
-                sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
+                sphereNode.geometry?.firstMaterial?.diffuse.contents = self.colorChoosen
                 sphereNode.position = currentCameraPosition
                 
                 self.arView.scene.rootNode.addChildNode(sphereNode)
@@ -116,7 +131,7 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
                 }
                 
                 self.arView.scene.rootNode.addChildNode(pointer)
-                pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
+                pointer.geometry?.firstMaterial?.diffuse.contents = self.colorChoosen
                 
             }
         }

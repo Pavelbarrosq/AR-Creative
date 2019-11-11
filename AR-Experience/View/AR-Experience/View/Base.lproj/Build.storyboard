@@ -22,7 +22,10 @@
                                 <rect key="frame" x="16" y="592" width="55" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="+"/>
+                                <color key="tintColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="+" backgroundImage="rectangle.fill" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="addNodeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uG7-es-ZiJ"/>
                                 </connections>
@@ -31,7 +34,10 @@
                                 <rect key="frame" x="304" y="592" width="55" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="-"/>
+                                <color key="tintColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="-" backgroundImage="rectangle.fill" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="deleteSceneButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ov0-e3-X3l"/>
                                 </connections>
@@ -57,4 +63,7 @@
             <point key="canvasLocation" x="2008.8" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="rectangle.fill" catalog="system" width="64" height="46"/>
+    </resources>
 </document>
