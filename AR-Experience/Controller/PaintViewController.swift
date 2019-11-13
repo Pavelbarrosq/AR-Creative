@@ -14,7 +14,7 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var drawButton: UIButton!
     @IBOutlet weak var arView: ARSCNView!
-    var configuaration = ARWorldTrackingConfiguration()
+    var configuration = ARWorldTrackingConfiguration()
     let defaultColor = UIColor.white
     var colorChoosen = UIColor()
     
@@ -23,10 +23,9 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
 
         arView.delegate = self
-        configuaration.planeDetection = .vertical
+        configuration.planeDetection = .vertical
         arView.debugOptions = [.showFeaturePoints]
-        arView.session.run(configuaration, options: [])
-        arView.autoenablesDefaultLighting = true
+        arView.session.run(configuration, options: [])
         
         colorChoosen = defaultColor
 
@@ -39,6 +38,7 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func refreshScene(_ sender: UIBarButtonItem) {
+        resetScene()
     }
     
     //MARK: - Funtions
@@ -57,25 +57,9 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
         }
         
         return SCNVector3Zero
-
-    }
-    
-    func deg2rad(_ number: Double) -> Double {
-        return number * .pi / 180
     }
     
     //MARK: - Managing Nodes
-    
-    func createWall(withAnchor anchor: ARPlaneAnchor) -> SCNNode {
-        let radian = deg2rad(90)
-        let wallNode = SCNNode(geometry: SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z)))
-        wallNode.name = "wall"
-        wallNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
-//        wallNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
-        wallNode.eulerAngles = SCNVector3(radian, 0, 0)
-        wallNode.geometry?.firstMaterial?.isDoubleSided = true
-        return wallNode
-    }
     
     func removeNodeWithString(named: String) {
         arView.scene.rootNode.enumerateChildNodes { (node, _) in
@@ -85,19 +69,26 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    func resetScene() {
+        arView.session.pause()
+        removeNodeWithString(named: "drawNode")
+        removeNodeWithString(named: "pointer")
+        arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
+    }
+    
     // MARK: - RendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("Anchorplane detected!")
-        let wall = createWall(withAnchor: anchorPlane)
+        let wall = WallNode.createWall(withAnchor: anchorPlane)
         node.addChildNode(wall)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         removeNodeWithString(named: "wall")
-        let wall = createWall(withAnchor: anchorPlane)
+        let wall = WallNode.createWall(withAnchor: anchorPlane)
         node.addChildNode(wall)
     }
     
@@ -113,22 +104,16 @@ class PaintViewController: UIViewController, ARSCNViewDelegate {
         DispatchQueue.main.async {
             if self.drawButton.isHighlighted {
                 
-                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.01))
-                sphereNode.geometry?.firstMaterial?.diffuse.contents = self.colorChoosen
-                sphereNode.position = currentCameraPosition
+                let sphereNode = SphereNode.createSphere(atPosition: currentCameraPosition, withcolor: self.colorChoosen)
+                sphereNode.name = "drawNode"
                 
                 self.arView.scene.rootNode.addChildNode(sphereNode)
                 
             }   else {
-                let pointer = SCNNode(geometry: SCNSphere(radius: 0.01))
-                pointer.position = currentCameraPosition
+                let pointer = SphereNode.createSphere(atPosition: currentCameraPosition, withcolor: self.colorChoosen)
                 pointer.name = "pointer"
                 
-                self.arView.scene.rootNode.enumerateChildNodes { (node, _) in
-                    if node.name == "pointer" {
-                        node.removeFromParentNode()
-                    }
-                }
+                self.removeNodeWithString(named: "pointer")
                 
                 self.arView.scene.rootNode.addChildNode(pointer)
                 pointer.geometry?.firstMaterial?.diffuse.contents = self.colorChoosen

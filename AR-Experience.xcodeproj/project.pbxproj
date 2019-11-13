@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD2F27D2237C4306004E5FF9 /* CubeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D1237C4306004E5FF9 /* CubeNode.swift */; };
+		CD2F27D4237C4D15004E5FF9 /* FloorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */; };
+		CD2F27D6237C4F35004E5FF9 /* WallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D5237C4F35004E5FF9 /* WallNode.swift */; };
+		CD2F27D8237C5595004E5FF9 /* SphereNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D7237C5595004E5FF9 /* SphereNode.swift */; };
 		CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E23C92372D24500ECD967 /* Extensions.swift */; };
 		CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC336D2369DAB7006A91AF /* Start.storyboard */; };
 		CD5E168A2375B6E40006448A /* Build.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16882375B6E30006448A /* Build.storyboard */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD2F27D1237C4306004E5FF9 /* CubeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeNode.swift; sourceTree = "<group>"; };
+		CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorNode.swift; sourceTree = "<group>"; };
+		CD2F27D5237C4F35004E5FF9 /* WallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
+		CD2F27D7237C5595004E5FF9 /* SphereNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereNode.swift; sourceTree = "<group>"; };
 		CD3E23C92372D24500ECD967 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CD5E16862375B5EC0006448A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD5E16872375B60E0006448A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +83,10 @@
 				CDFC33672369DAB7006A91AF /* AppDelegate.swift */,
 				CDFC33692369DAB7006A91AF /* SceneDelegate.swift */,
 				CD3E23C92372D24500ECD967 /* Extensions.swift */,
+				CD2F27D1237C4306004E5FF9 /* CubeNode.swift */,
+				CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */,
+				CD2F27D5237C4F35004E5FF9 /* WallNode.swift */,
+				CD2F27D7237C5595004E5FF9 /* SphereNode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,10 +195,14 @@
 			files = (
 				CD5E168C2375BB000006448A /* StartViewController.swift in Sources */,
 				CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */,
+				CD2F27D4237C4D15004E5FF9 /* FloorNode.swift in Sources */,
 				CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */,
 				CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */,
+				CD2F27D2237C4306004E5FF9 /* CubeNode.swift in Sources */,
+				CD2F27D8237C5595004E5FF9 /* SphereNode.swift in Sources */,
 				CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */,
 				CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */,
+				CD2F27D6237C4F35004E5FF9 /* WallNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

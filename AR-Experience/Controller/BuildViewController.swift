@@ -50,68 +50,26 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         let cameraTransform = arView.session.currentFrame?.camera.transform
         let cameraPos = MDLTransform(matrix: cameraTransform!)
         
-        var cp = Extensions.myCameraPos()
-        cp.x = cameraPos.translation.x
-        cp.y = cameraPos.translation.y
-        cp.z = cameraPos.translation.z
+        var pos = Extensions.myCameraPos()
+        pos.x = cameraPos.translation.x
+        pos.y = cameraPos.translation.y
+        pos.z = cameraPos.translation.z
         
-        return cp
+        return pos
     }
     
     func addCube() {
-        let CamPos = getCameraPos(sceneView: arView)
-        let cubeNode = SCNNode()
-        cubeNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.002)
-        cubeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
+        let camPos = getCameraPos(sceneView: arView)
         
-        cubeNode.position = SCNVector3(CamPos.x, CamPos.y, CamPos.z)
-        cubeNode.name = "cube"
-        
-        cubeNode.physicsBody?.restitution = 0.8
-        cubeNode.physicsBody?.mass = 0.5
-        let cubeBodyShape = SCNPhysicsShape(geometry: cubeNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
-        cubeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: cubeBodyShape)
-        cubeNode.physicsBody?.categoryBitMask = Extensions.BodyType.box.rawValue
-        cubeNode.physicsBody?.collisionBitMask = Extensions.BodyType.floor.rawValue | Extensions.BodyType.box.rawValue
-        cubeNode.physicsBody?.contactTestBitMask = Extensions.BodyType.floor.rawValue | Extensions.BodyType.box.rawValue
-        
-        arView.scene.rootNode.addChildNode(cubeNode)
-    }
-    
-    
-//    func addFloor() {
-//        let floorNode = SCNNode()
-//        floorNode.geometry = SCNFloor()
-//        floorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white.withAlphaComponent(0.8)
-//        floorNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.static, shape: SCNPhysicsShape(geometry: SCNFloor(), options: nil))
-//        floorNode.position = SCNVector3(0, -0.7, -0.5)
-//        arView.scene.rootNode.addChildNode(floorNode)
-//        floorNode.physicsBody?.categoryBitMask = Extensions.BodyType.floor.rawValue
-//
-//    }
-          
-    func createFloor(anchor: ARPlaneAnchor) -> SCNNode {
-        let floorNode = SCNNode()
-        let radian = deg2rad(90)
-        floorNode.name = "floor"
-        floorNode.eulerAngles = SCNVector3(radian, 0, 0)
-        floorNode.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
-        floorNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
-        floorNode.geometry?.firstMaterial?.isDoubleSided = true
-        floorNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-//        let floorBodyShape = SCNPhysicsShape(geometry: floorNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
-        floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil) // or shape floorbodyshape
-        floorNode.physicsBody?.categoryBitMask = Extensions.BodyType.floor.rawValue
+        CubeNode.createCubeNode(inSceneView: arView, position: camPos, withColor: .cyan)
 
-        return floorNode
     }
-    
+
     func resetScene() {
         arView.session.pause()
         removeNodeWithString(named: "cube")
         removeNodeWithString(named: "floor")
         arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
-//        addFloor()
     }
     
     func removeNodes() {
@@ -126,26 +84,10 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         }
     }
     
-    func deg2rad(_ number: Double) -> Double {
-        return number * .pi / 180
-    }
     // MARK: - TouchDelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let firstTouch = touches.first {
-//            let touchLocation = firstTouch.location(in: arView)
-//
-//            let hitTestResult = arView.hitTest(touchLocation, types: .featurePoint)
-//            let nodeResult = arView?.hitTest(touchLocation)
-//            let node = nodeResult?.first?.node
-//            if !hitTestResult.isEmpty {
-//                guard let hitResult = hitTestResult.first else {return}
-//                let desiredPos = SCNVector3(hitResult.worldTransform.columns.3.x,
-//                                                  hitResult.worldTransform.columns.3.y,
-//                                                  hitResult.worldTransform.columns.3.z)
-//                node?.position = desiredPos
-//            }
-//        }
+
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -173,7 +115,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("New Planeanchor found with extent \(anchorPlane.extent)")
 
-        let floor = createFloor(anchor: anchorPlane)
+        let floor = FloorNode.createFloor(anchor: anchorPlane)
         node.addChildNode(floor)
     }
 
@@ -182,7 +124,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("Planeanchor updated with extent \(anchorPlane.extent)")
         removeNodeWithString(named: "floor")
-        let floor = createFloor(anchor: anchorPlane)
+        let floor = FloorNode.createFloor(anchor: anchorPlane)
         node.addChildNode(floor)
     }
 

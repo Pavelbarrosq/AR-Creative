@@ -21,5 +21,7 @@ class Extensions {
         var z = Float()
     }
     
-    
+    class func deg2rad(_ number: Double) -> Double {
+        return number * .pi / 180
+    }
 }
