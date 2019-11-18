@@ -21,7 +21,8 @@ class CubeNode {
         cubeNode.name = "cube"
         
         cubeNode.physicsBody?.restitution = 0.8
-        cubeNode.physicsBody?.mass = 0.5
+        cubeNode.physicsBody?.mass = 100
+        cubeNode.physicsBody?.rollingFriction = 50
         let cubeBodyShape = SCNPhysicsShape(geometry: cubeNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         cubeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: cubeBodyShape)
         cubeNode.physicsBody?.categoryBitMask = Extensions.BodyType.box.rawValue

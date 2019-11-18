@@ -20,6 +20,10 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @IBOutlet weak var arView: ARSCNView!
     @IBOutlet weak var addButton: UIButton!
     var configuration = ARWorldTrackingConfiguration()
+    var nodeTouched: SCNNode?
+    var locationTapped: CGPoint?
+    var desiredPosition: SCNVector3?
+    var isMoved = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +34,9 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         arView.autoenablesDefaultLighting = true
         arView.delegate = self
         arView.scene.physicsWorld.contactDelegate = self
+        
+        addGestureRecogniser(inView: arView)
+        
     }
     
     // MARK: - IBActions
@@ -44,7 +51,51 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         resetScene()
     }
 
-    // MARK: - Functions(NODES)
+    // MARK: - Functions
+    
+    
+    func addGestureRecogniser(inView view: ARSCNView) {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(BuildViewController.didTap(_:)))
+        view.addGestureRecognizer(pan)
+    }
+    
+    @objc func didTap(_ sender: UIPanGestureRecognizer) {
+        
+        switch sender.state {
+        case .began, .changed:
+            let positionTapped = sender.location(in: arView)
+            let results = arView.hitTest(positionTapped, types: .featurePoint)
+            let hitTest = arView.hitTest(positionTapped, options: nil)
+            
+            if let result = results.first {
+                let location = SCNVector3(result.worldTransform.columns.3.x,
+                                          result.worldTransform.columns.3.y,
+                                          result.worldTransform.columns.3.z)
+                
+                desiredPosition = location
+            }
+            
+            
+            if let node = hitTest.first?.node {
+
+                if node.name == "cube" {
+                    nodeTouched = node
+                    nodeTouched?.position = desiredPosition!
+                }
+
+            }
+            
+        case .ended:
+            
+            return
+            
+        default:
+            return
+        }
+    }
+    
+
+    
     
     func getCameraPos(sceneView: ARSCNView) -> Extensions.myCameraPos {
         let cameraTransform = arView.session.currentFrame?.camera.transform
@@ -84,36 +135,49 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         }
     }
     
-    // MARK: - TouchDelegate
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//        if let touch = touches.first {
+//            locationTapped = touch.location(in: arView)
+//            let results = arView.hitTest(locationTapped!, options: nil)
+//
+//            if let hitResult = results.first?.node {
+//                let node = hitResult
+//                nodeTouched = node
+//                print(nodeTouched?.name)
+//
+//                isMoved = true
+//            }
+//        }
+//
+//    }
+//
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if isMoved {
+//            if let touch = touches.first {
+//                let position = touch.location(in: arView)
+//                let results = arView.hitTest(position, options: nil)
+//
+//                if let result = results.first?.node {
+//                    let desiredPosition = result.position
+//                    nodeTouched?.position = desiredPosition
+//
+//                    print("Node Moved!!!")
+//                }
+//            }
+//        }
+//    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    
+    
 
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let view = self.arView else {return}
-        
-        if let firstTouch = touches.first {
-            let location = firstTouch.location(in: view)
-            let hitResult = view.hitTest(location, options: nil)
-            
-            if let node = hitResult.first?.node {
-                
-//                node.position = SCNVector3Make(location.wo, <#T##y: Float##Float#>, <#T##z: Float##Float#>)
-                
-            } else {return}
-        }
-    }
-    
-    
-    
-    
     // MARK: - SceneRendererDelegate
     
     //Find a set anchor to node and then addnode to scene
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("New Planeanchor found with extent \(anchorPlane.extent)")
+//        print("New Planeanchor found with extent \(anchorPlane.extent)")
 
         let floor = FloorNode.createFloor(anchor: anchorPlane)
         node.addChildNode(floor)
@@ -122,15 +186,15 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     //Deleted the node and add another while moving
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("Planeanchor updated with extent \(anchorPlane.extent)")
+//        print("Planeanchor updated with extent \(anchorPlane.extent)")
         removeNodeWithString(named: "floor")
         let floor = FloorNode.createFloor(anchor: anchorPlane)
         node.addChildNode(floor)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("Planeanchor removed with extent \(anchorPlane.extent)")
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+//        print("Planeanchor removed with extent \(anchorPlane.extent)")
         removeNodeWithString(named: "floor")
     }
     
@@ -148,7 +212,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     // MARK: - ScenePhysicsDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("Contact happened!")
+//        print("Contact happened!")
     }
     
     

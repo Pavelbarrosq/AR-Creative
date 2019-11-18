@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Extensions {
     
@@ -24,4 +25,6 @@ class Extensions {
     class func deg2rad(_ number: Double) -> Double {
         return number * .pi / 180
     }
+    
+    
 }

@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Start View Controller-->
+        <!--Welcome to-->
         <scene sceneID="jqX-Ji-D5Y">
             <objects>
                 <viewController storyboardIdentifier="Start" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lFh-mU-k5L" customClass="StartViewController" customModule="AR_Experience" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JxK-nj-VzL"/>
                     </view>
-                    <navigationItem key="navigationItem" id="kEw-2N-122"/>
+                    <navigationItem key="navigationItem" title="Welcome to" largeTitleDisplayMode="always" id="kEw-2N-122"/>
                     <connections>
                         <outlet property="tableView" destination="lqE-La-eBL" id="tnW-YU-vUp"/>
                     </connections>
@@ -84,7 +84,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vbb-77-8sN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7uK-ID-1sE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="7uK-ID-1sE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="blackTranslucent" id="SDq-TO-gp7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
