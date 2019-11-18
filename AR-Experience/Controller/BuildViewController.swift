@@ -21,8 +21,8 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @IBOutlet weak var addButton: UIButton!
     var configuration = ARWorldTrackingConfiguration()
     var nodeTouched: SCNNode?
-    var locationTapped: CGPoint?
-    var desiredPosition: SCNVector3?
+    var zOffset: Float?
+    
     var isMoved = false
     
     override func viewDidLoad() {
@@ -61,30 +61,63 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     @objc func didTap(_ sender: UIPanGestureRecognizer) {
         
+        var locationTapped: CGPoint
+
+        let locationOrigin: SCNVector3
+        
+        
         switch sender.state {
-        case .began, .changed:
-            let positionTapped = sender.location(in: arView)
-            let results = arView.hitTest(positionTapped, types: .featurePoint)
-            let hitTest = arView.hitTest(positionTapped, options: nil)
+        case .began:
             
-            if let result = results.first {
-                let location = SCNVector3(result.worldTransform.columns.3.x,
-                                          result.worldTransform.columns.3.y,
-                                          result.worldTransform.columns.3.z)
+            if !isMoved {
+                locationTapped = sender.location(in: arView)
+                let results = arView.hitTest(locationTapped, types: .featurePoint)
+                let hitTest = arView.hitTest(locationTapped, options: nil)
                 
-                desiredPosition = location
-            }
-            
-            
-            if let node = hitTest.first?.node {
-
-                if node.name == "cube" {
-                    nodeTouched = node
-                    nodeTouched?.position = desiredPosition!
+                if hitTest.first?.node.name == "cube" {
+                    
+                    if let result = results.first {
+                        locationOrigin = SCNVector3(result.worldTransform.columns.3.x,
+                                                  result.worldTransform.columns.3.y,
+                                                  result.worldTransform.columns.3.z)
+                        
+                        print("Location is!: \(locationOrigin)")
+                        
+                        zOffset = locationOrigin.z
+   
+                        isMoved = true
+                    }
                 }
-
+            }
+                        
+        case .changed:
+            if isMoved {
+                let locationMoved = sender.location(in: arView)
+                let hitTest = arView.hitTest(locationMoved, options: nil)
+                let results = arView.hitTest(locationMoved, types: .featurePoint)
+                            
+                if let node = hitTest.first?.node {
+                    
+                    if node.name == "cube" {
+                        nodeTouched = node
+    //                    nodeTouched!.position = locationMoved
+                        print(nodeTouched!.name)
+                        
+                        if let result = results.first {
+                            let locationMoved = SCNVector3(result.worldTransform.columns.3.x,
+                            result.worldTransform.columns.3.y,
+                            zOffset!)
+                            
+                            print("Location MOVED IS: \(locationMoved)")
+                            
+                            nodeTouched?.position = locationMoved
+                            
+                        }
+                    }
+                }
             }
             
+                
         case .ended:
             
             return
