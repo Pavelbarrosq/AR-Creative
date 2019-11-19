@@ -11,18 +11,19 @@ import SceneKit
 import ARKit
 
 class CubeNode {
-    class func createCubeNode(inSceneView view: ARSCNView, position pos: Extensions.myCameraPos, withColor color: UIColor){
+    class func createCubeNode(inSceneView view: ARSCNView, position pos: SCNVector3, withColor color: UIColor){
         
         let cubeNode = SCNNode()
-        cubeNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.002)
+        cubeNode.geometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0.002)
         cubeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
         
-        cubeNode.position = SCNVector3(pos.x, pos.y, pos.z)
+        cubeNode.position = pos
+//        cubeNode.position = SCNVector3(pos.x, pos.y, pos.z)
         cubeNode.name = "cube"
         
         cubeNode.physicsBody?.restitution = 0.8
-        cubeNode.physicsBody?.mass = 100
-        cubeNode.physicsBody?.rollingFriction = 50
+        cubeNode.physicsBody?.mass = 1
+        cubeNode.physicsBody?.rollingFriction = 0
         let cubeBodyShape = SCNPhysicsShape(geometry: cubeNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         cubeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: cubeBodyShape)
         cubeNode.physicsBody?.categoryBitMask = Extensions.BodyType.box.rawValue

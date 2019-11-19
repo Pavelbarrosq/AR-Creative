@@ -42,6 +42,15 @@
                                     <action selector="deleteSceneButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ov0-e3-X3l"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTU-vN-vZ0">
+                                <rect key="frame" x="161" y="593.5" width="53" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="markButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s3a-FR-62F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -56,6 +65,7 @@
                     <connections>
                         <outlet property="addButton" destination="zBA-id-X1B" id="fTZ-MB-Bjw"/>
                         <outlet property="arView" destination="TKa-uP-qOP" id="dlC-fM-GWq"/>
+                        <outlet property="markButton" destination="nTU-vN-vZ0" id="OVu-52-dCu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -64,6 +74,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="circle.fill" catalog="system" width="64" height="60"/>
         <image name="rectangle.fill" catalog="system" width="64" height="46"/>
     </resources>
 </document>
