@@ -41,6 +41,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
 //        addGestureRecogniser(inView: arView)
         addLongPressRecogniser(button: markButton)
         
+        
     }
     
     // MARK: - IBActions
