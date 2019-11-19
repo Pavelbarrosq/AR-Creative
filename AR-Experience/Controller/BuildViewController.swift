@@ -58,26 +58,6 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @IBAction func markButtonPressed(_ sender: UIButton) {
         
 
-        switch sender.state {
-        case .highlighted:
-
-            print("BUTTON PRESSED")
-            let centerMark = arView.center
-            let hitTest = arView.hitTest(centerMark, options: nil)
-            
-           if !hitTest.isEmpty && hitTest.first!.node.name == "cube" {
-                nodeTouched = hitTest.first?.node
-                print("NODE FOUND: \(nodeTouched?.name)")
-                nodeTouched?.position = currentCameraPosition!
-            }
-
-        case .normal:
-            nodeTouched = nil
-
-        default:
-            return
-        }
- 
     }
     
     
