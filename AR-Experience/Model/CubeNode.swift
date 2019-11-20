@@ -11,10 +11,10 @@ import SceneKit
 import ARKit
 
 class CubeNode {
-    class func createCubeNode(inSceneView view: ARSCNView, position pos: SCNVector3, withColor color: UIColor){
+    class func createCubeNode(width : Float, height: Float, length: Float, inSceneView view: ARSCNView, position pos: SCNVector3, withColor color: UIColor){
         
         let cubeNode = SCNNode()
-        cubeNode.geometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0.002)
+        cubeNode.geometry = SCNBox(width: CGFloat(width), height: CGFloat(height), length: CGFloat(length), chamferRadius: 0.002)
         cubeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
         
         cubeNode.position = pos

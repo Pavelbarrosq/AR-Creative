@@ -10,22 +10,30 @@ import UIKit
 import ARKit
 import SceneKit
 
-//enum BodyType: Int {
-//    case box = 1
-//    case floor = 2
-//}
 
-class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
 
+enum SetSize: String {
+    case height = "Height"
+    case width = "Width"
+    case depth = "Depth"
+}
+
+class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, UITextFieldDelegate {
+
+    @IBOutlet var sizeTextFields: [UITextField]!
     @IBOutlet weak var arView: ARSCNView!
     @IBOutlet weak var addButton: UIButton!
     var configuration = ARWorldTrackingConfiguration()
     var nodeTouched: SCNNode?
     var zOffset: Float?
     var currentCameraPosition: SCNVector3?
-    var stoppedPressed = false
+    var firstPress = true
     var haptikFeedback: UIImpactFeedbackGenerator? = nil
+    var height: Float?
+    var width: Float?
+    var depth: Float?
     
+    let dividedBy: Float = 100.0
     
     
     @IBOutlet weak var markButton: UIButton!
@@ -41,12 +49,15 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         arView.delegate = self
         arView.scene.physicsWorld.contactDelegate = self
         
-        
+        sizeTextFields.forEach { (field) in
+            field.isHidden = true
+            field.delegate = self as UITextFieldDelegate
+        }
 //        addGestureRecogniser(inView: arView)
         addLongPressRecogniser(button: markButton)
         
         
-        
+ 
     }
     
     // MARK: - IBActions
@@ -61,13 +72,54 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         resetScene()
     }
     
-    @IBAction func markButtonPressed(_ sender: UIButton) {
+    @IBAction func handleSizeBarButton(_ sender: UIBarButtonItem) {
+        if firstPress == true {
+            sizeTextFields.forEach { (field) in
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut, animations: {
+                    field.isHidden = false
+//                    self.view.layoutIfNeeded()
+                    self.firstPress = false
+                }, completion: nil)
+                
+            }
+        } else {
+            sizeTextFields.forEach { (field) in
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut, animations: {
+                    field.isHidden = true
+//                    self.view.layoutIfNeeded()
+                    self.firstPress = true
+                    
+                    guard let text = field.text ,let name = field.placeholder, let type = SetSize(rawValue: name) else {return}
+                    
+                    switch type {
+                    case .height:
+                        
+                        guard let input = Float(text) as Float? else {return}
+                        self.height = input / self.dividedBy
+                        
+                    case .width:
+                        
+                        guard let input = Float(text) as Float? else {return}
+                        self.width = input / self.dividedBy
+                    case .depth:
+                        
+                        guard let input = Float(text) as Float? else {return}
+                        self.depth = input / self.dividedBy
+                    default:
+                        break
+                    }
+                }, completion: nil)
+            }
+            
+        }
         
-
     }
     
+
     
     // MARK: - Functions
+
+    
     
     func addLongPressRecogniser(button: UIButton) {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
@@ -134,7 +186,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
 //        let camPos = getCameraPos(sceneView: arView)
         guard let currentPos = currentCameraPosition else {return}
         
-        CubeNode.createCubeNode(inSceneView: arView, position: currentPos, withColor: .cyan)
+        CubeNode.createCubeNode(width: width ?? 0.2, height: height ?? 0.2, length: depth ?? 0.2, inSceneView: arView, position: currentPos, withColor: .cyan)
 
     }
 
@@ -217,6 +269,16 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
 //        print("Contact happened!")
         
+    }
+    
+    // MARK: - TextfieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sizeTextFields.forEach { (field) in
+            field.resignFirstResponder()
+            
+        }
+        return true
     }
     
     
