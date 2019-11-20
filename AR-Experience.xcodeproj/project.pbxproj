@@ -13,6 +13,8 @@
 		CD2F27D8237C5595004E5FF9 /* SphereNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D7237C5595004E5FF9 /* SphereNode.swift */; };
 		CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E23C92372D24500ECD967 /* Extensions.swift */; };
 		CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC336D2369DAB7006A91AF /* Start.storyboard */; };
+		CD4CD9252385428E000BE73B /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4CD9242385428E000BE73B /* HapticFeedback.swift */; };
+		CD4CD9272385461B000BE73B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4CD9262385461B000BE73B /* Camera.swift */; };
 		CD5E168A2375B6E40006448A /* Build.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16882375B6E30006448A /* Build.storyboard */; };
 		CD5E168C2375BB000006448A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E168B2375BB000006448A /* StartViewController.swift */; };
 		CD6985E7237341B000ECA2DD /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CD6985E6237341B000ECA2DD /* art.scnassets */; };
@@ -30,6 +32,8 @@
 		CD2F27D5237C4F35004E5FF9 /* WallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
 		CD2F27D7237C5595004E5FF9 /* SphereNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereNode.swift; sourceTree = "<group>"; };
 		CD3E23C92372D24500ECD967 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CD4CD9242385428E000BE73B /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
+		CD4CD9262385461B000BE73B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		CD5E16862375B5EC0006448A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD5E16872375B60E0006448A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD5E16892375B6E40006448A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "AR-Experience/View/Base.lproj/Build.storyboard"; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 				CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */,
 				CD2F27D5237C4F35004E5FF9 /* WallNode.swift */,
 				CD2F27D7237C5595004E5FF9 /* SphereNode.swift */,
+				CD4CD9242385428E000BE73B /* HapticFeedback.swift */,
+				CD4CD9262385461B000BE73B /* Camera.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,11 +201,13 @@
 			files = (
 				CD5E168C2375BB000006448A /* StartViewController.swift in Sources */,
 				CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */,
+				CD4CD9252385428E000BE73B /* HapticFeedback.swift in Sources */,
 				CD2F27D4237C4D15004E5FF9 /* FloorNode.swift in Sources */,
 				CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */,
 				CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */,
 				CD2F27D2237C4306004E5FF9 /* CubeNode.swift in Sources */,
 				CD2F27D8237C5595004E5FF9 /* SphereNode.swift in Sources */,
+				CD4CD9272385461B000BE73B /* Camera.swift in Sources */,
 				CDFC336A2369DAB7006A91AF /* SceneDelegate.swift in Sources */,
 				CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */,
 				CD2F27D6237C4F35004E5FF9 /* WallNode.swift in Sources */,

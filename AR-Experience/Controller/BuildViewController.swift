@@ -24,6 +24,9 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     var zOffset: Float?
     var currentCameraPosition: SCNVector3?
     var stoppedPressed = false
+    var haptikFeedback: UIImpactFeedbackGenerator? = nil
+    
+    
     
     @IBOutlet weak var markButton: UIButton!
     
@@ -38,8 +41,10 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         arView.delegate = self
         arView.scene.physicsWorld.contactDelegate = self
         
+        
 //        addGestureRecogniser(inView: arView)
         addLongPressRecogniser(button: markButton)
+        
         
         
     }
@@ -70,11 +75,20 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     }
     
     @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        
+        haptikFeedback = HapticFeedback.createImpactFeedback()
+        haptikFeedback?.prepare()
 
         switch gesture.state {
             
         case .began:
+            haptikFeedback?.prepare()
             nodeTouched = nil
+            
+            let results = arView.hitTest(arView.center, options: nil)
+            if results.first?.node.name == "cube" {
+                haptikFeedback?.impactOccurred()
+            }
 
         case .changed:
             print("BUTTON PRESSED")
@@ -82,13 +96,14 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
              let hitTest = arView.hitTest(centerMark, options: nil)
              
             if !hitTest.isEmpty && hitTest.first!.node.name == "cube" {
-                 nodeTouched = hitTest.first?.node
+                nodeTouched = hitTest.first?.node
                 nodeTouched?.physicsBody = .static()
-                 print("NODE FOUND: \(nodeTouched?.name)")
-                 nodeTouched?.position = currentCameraPosition!
+                print("NODE FOUND: \(nodeTouched?.name)")
+                nodeTouched?.position = currentCameraPosition!
              }
             
         case .ended:
+            haptikFeedback = nil
             nodeTouched?.physicsBody = .dynamic()
             
         default:
@@ -96,81 +111,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         }
         
     }
-//
-//    func addGestureRecogniser(inView view: ARSCNView) {
-//        let pan = UIPanGestureRecognizer(target: self, action: #selector(BuildViewController.didTap(_:)))
-//        view.addGestureRecognizer(pan)
-//    }
-//
-//    @objc func didTap(_ sender: UIPanGestureRecognizer) {
-//
-//        var locationTapped: CGPoint
-//
-//        let locationOrigin: SCNVector3
-//
-//        guard let currentCapPosZ = currentCameraPosition?.z else {return}
-//
-//
-//        switch sender.state {
-//        case .began:
-//
-//            if nodeTouched == nil {
-//                locationTapped = sender.location(in: arView)
-//                let results = arView.hitTest(locationTapped, types: .featurePoint)
-//                let hitTest = arView.hitTest(locationTapped, options: nil)
-//
-//                if hitTest.first?.node.name == "cube" {
-//
-//                    nodeTouched = hitTest.first?.node
-////                    nodeTouched?.position = SCNVector3Zero
-//
-//                    zOffset = nodeTouched?.position.z
-//
-//                    print("NODE TOUCHED: \(nodeTouched?.name)")
-//
-////                    if let result = results.first {
-////                        locationOrigin = SCNVector3(result.worldTransform.columns.3.x,
-////                                                  result.worldTransform.columns.3.y,
-////                                                  result.worldTransform.columns.3.z)
-////
-////                        print("Location is!: \(locationOrigin)")
-////
-////                        zOffset = locationOrigin.z
-////
-////                        isMoved = true
-//
-//                   // }
-//                }
-//            }
-                        
-//        case .changed:
-//            if nodeTouched != nil  {
-////                let locationMoved = sender.location(in: sender.view)
-//                sender.minimumNumberOfTouches = 1
-//
-//                let results = arView.hitTest(sender.location(in: sender.view), types: .featurePoint)
-//
-//                guard let result = results.first else {return}
-//
-//                let hits = arView.hitTest(sender.location(in: sender.view), options: nil)
-//
-//                if hits.first?.node.name == "cube" {
-//                    let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
-//                    nodeTouched?.position = position
-//                }
-//
-//
-//        }
-//
-//
-//        case .ended:
-//            nodeTouched = nil
-//            return
-//
-//        default:
-//            return
-//        }
-//    }
+
     
     
     func getCurrentCamPos(sceneView: ARSCNView) -> SCNVector3 {
@@ -215,10 +156,6 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             }
         }
     }
-    
-    
-    
-    
 
     // MARK: - SceneRendererDelegate
     

@@ -18,4 +18,8 @@ class SphereNode {
         
         return sphereNode
     }
+    
+    class func createPointer(){
+        
+    }
 }
