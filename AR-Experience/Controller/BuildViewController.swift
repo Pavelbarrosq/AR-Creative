@@ -32,6 +32,9 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     var height: Float?
     var width: Float?
     var depth: Float?
+    var rotation: Float = 0.0
+    var nodeToRotate: SCNNode?
+    
     
     let dividedBy: Float = 100.0
     
@@ -53,6 +56,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             field.isHidden = true
             field.delegate = self as UITextFieldDelegate
         }
+        addRotationGestureRecogniser(view: arView)
 //        addGestureRecogniser(inView: arView)
         addLongPressRecogniser(button: markButton)
         
@@ -66,6 +70,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     @IBAction func addNodeButtonPressed(_ sender: UIButton) {
         addCube()
+        
     }
     
     @IBAction func deleteSceneButtonPressed(_ sender: UIButton) {
@@ -119,20 +124,37 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     // MARK: - Functions
 
-    
+    func addRotationGestureRecogniser(view: ARSCNView) {
+        let rotation = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(gesture:)))
+        view.addGestureRecognizer(rotation)
+    }
     
     func addLongPressRecogniser(button: UIButton) {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
         button.addGestureRecognizer(longPress)
     }
     
+    @objc func didRotate(gesture: UIRotationGestureRecognizer) {
+        switch gesture.state {
+        case .changed:
+            print("ROTATION!!!!")
+            nodeToRotate?.physicsBody = .static()
+            nodeToRotate?.eulerAngles.y = Float(gesture.rotation)
+            rotation = Float(gesture.rotation)
+        case .ended:
+            nodeToRotate?.eulerAngles.y = rotation
+        default:
+            return
+        }
+    }
+    
     @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
-        
         haptikFeedback = HapticFeedback.createImpactFeedback()
         haptikFeedback?.prepare()
+        
+        var desiredPosition = currentCameraPosition
 
         switch gesture.state {
-            
         case .began:
             haptikFeedback?.prepare()
             nodeTouched = nil
@@ -141,53 +163,28 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             if results.first?.node.name == "cube" {
                 haptikFeedback?.impactOccurred()
             }
-
         case .changed:
-            print("BUTTON PRESSED")
              let centerMark = arView.center
              let hitTest = arView.hitTest(centerMark, options: nil)
              
-            if !hitTest.isEmpty && hitTest.first!.node.name == "cube" {
+            if hitTest.first!.node.name == "cube" {
                 nodeTouched = hitTest.first?.node
                 nodeTouched?.physicsBody = .static()
-                print("NODE FOUND: \(nodeTouched?.name)")
-                nodeTouched?.position = currentCameraPosition!
+                nodeTouched?.position = desiredPosition!
              }
-            
         case .ended:
+            desiredPosition = nil
             haptikFeedback = nil
             nodeTouched?.physicsBody = .dynamic()
-            
         default:
             return
         }
-        
     }
 
-    
-    
-    func getCurrentCamPos(sceneView: ARSCNView) -> SCNVector3 {
-        if let pow = sceneView.pointOfView {
-            let transform = pow.transform
-            let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
-            let location = SCNVector3(transform.m41, transform.m42, transform.m43)
-            
-            let currentCameraPosition = SCNVector3Make(orientation.x + location.x,
-                                                       orientation.y + location.y,
-                                                       orientation.z + location.z)
-            
-            return currentCameraPosition
-        }
-        
-        return SCNVector3Zero
-    }
     
     func addCube() {
-//        let camPos = getCameraPos(sceneView: arView)
-        guard let currentPos = currentCameraPosition else {return}
-        
-        CubeNode.createCubeNode(width: width ?? 0.2, height: height ?? 0.2, length: depth ?? 0.2, inSceneView: arView, position: currentPos, withColor: .cyan)
-
+        let node = CubeNode.createCubeNode(width: width ?? 0.3, height: height ?? 0.3, length: depth ?? 0.3, inSceneView: arView, position: currentCameraPosition!, withColor: .cyan)
+        arView.scene.rootNode.addChildNode(node)
     }
 
     func resetScene() {
@@ -230,9 +227,6 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-//        print("Planeanchor removed with extent \(anchorPlane.extent)")
-        removeNodeWithString(named: "floor")
     }
     
     //Deletes node if it is under 2.5 meters down
@@ -248,7 +242,8 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     //Updating camera pos when rendering scene
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        currentCameraPosition = getCurrentCamPos(sceneView: arView)
+//        currentCameraPosition = getCurrentCamPos(sceneView: arView)
+        currentCameraPosition = Camera.getCurrentCamPos(sceneView: arView)
         
         DispatchQueue.main.async {
         
@@ -267,8 +262,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     // MARK: - ScenePhysicsDelegate
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-//        print("Contact happened!")
-        
+    
     }
     
     // MARK: - TextfieldDelegate
@@ -279,6 +273,19 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             
         }
         return true
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard let touchLocation = touches.first?.location(in: arView) else {return}
+        
+        let hitTest = arView.hitTest(touchLocation, options: nil)
+        
+        if hitTest.first?.node.name == "cube" {
+            let node = hitTest.first?.node
+            nodeToRotate = node
+        }
     }
     
     

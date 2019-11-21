@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 
 class CubeNode {
-    class func createCubeNode(width : Float, height: Float, length: Float, inSceneView view: ARSCNView, position pos: SCNVector3, withColor color: UIColor){
+    class func createCubeNode(width : Float, height: Float, length: Float, inSceneView view: ARSCNView, position pos: SCNVector3, withColor color: UIColor) -> SCNNode{
         
         let cubeNode = SCNNode()
         cubeNode.geometry = SCNBox(width: CGFloat(width), height: CGFloat(height), length: CGFloat(length), chamferRadius: 0.002)
@@ -25,11 +25,16 @@ class CubeNode {
         cubeNode.physicsBody?.mass = 1
         cubeNode.physicsBody?.rollingFriction = 0
         let cubeBodyShape = SCNPhysicsShape(geometry: cubeNode.geometry!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
-        cubeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: cubeBodyShape)
+        cubeNode.physicsBody = SCNPhysicsBody(type: .static, shape: cubeBodyShape)
         cubeNode.physicsBody?.categoryBitMask = Extensions.BodyType.box.rawValue
         cubeNode.physicsBody?.collisionBitMask = Extensions.BodyType.floor.rawValue | Extensions.BodyType.box.rawValue
         cubeNode.physicsBody?.contactTestBitMask = Extensions.BodyType.floor.rawValue | Extensions.BodyType.box.rawValue
         
-        view.scene.rootNode.addChildNode(cubeNode)
+        return cubeNode
+        
+//        view.scene.rootNode.addChildNode(cubeNode)
+        
+        
+        
     }
 }
