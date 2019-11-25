@@ -23,6 +23,9 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @IBOutlet var sizeTextFields: [UITextField]!
     @IBOutlet weak var arView: ARSCNView!
     @IBOutlet weak var addButton: UIButton!
+    
+    var grids = [FloorNode]()
+    
     var configuration = ARWorldTrackingConfiguration()
     var nodeTouched: SCNNode?
     var zOffset: Float?
@@ -34,6 +37,9 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     var depth: Float?
     var rotation: Float = 0.0
     var nodeToRotate: SCNNode?
+    var isNodeTouched: Bool = false
+//    var setlocationToNode: SCNVector3 = SCNVector3Zero
+    var floor: SCNNode?
     
     
     let dividedBy: Float = 100.0
@@ -153,32 +159,45 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         haptikFeedback?.prepare()
         
         var desiredPosition = currentCameraPosition
-
+        
         switch gesture.state {
-        case .began:
-            haptikFeedback?.prepare()
-            nodeTouched = nil
+               case .began:
+                if isNodeTouched == false {
+                    haptikFeedback?.prepare()
+                    nodeTouched = nil
+                    
+                    let results = arView.hitTest(arView.center, options: nil)
+                        if results.first?.node.name == "cube" {
+                        haptikFeedback?.impactOccurred()
+                        isNodeTouched = true
+                        }
+                    
+                    }
+               case .changed:
+                    if isNodeTouched == true {
+                        let centerMark = arView.center
+                        let hitTest = arView.hitTest(centerMark, options: nil)
+                        
+                        if let cube = hitTest.first?.node {
+                           if cube.name == "cube" {
+                               nodeTouched = hitTest.first?.node
+                               nodeTouched?.physicsBody = .static()
+                               nodeTouched?.position = desiredPosition ?? SCNVector3Zero
+                            }
+                        }
+                    }
+                    
+                    
+               case .ended:
+                    desiredPosition = nil
+                    haptikFeedback = nil
+                    nodeTouched?.physicsBody = .dynamic()
+                    isNodeTouched = false
             
-            let results = arView.hitTest(arView.center, options: nil)
-            if results.first?.node.name == "cube" {
-                haptikFeedback?.impactOccurred()
-            }
-        case .changed:
-             let centerMark = arView.center
-             let hitTest = arView.hitTest(centerMark, options: nil)
-             
-            if hitTest.first!.node.name == "cube" {
-                nodeTouched = hitTest.first?.node
-                nodeTouched?.physicsBody = .static()
-                nodeTouched?.position = desiredPosition!
-             }
-        case .ended:
-            desiredPosition = nil
-            haptikFeedback = nil
-            nodeTouched?.physicsBody = .dynamic()
-        default:
-            return
-        }
+               default:
+                   break
+               }
+
     }
 
     
@@ -210,23 +229,41 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     //Find a set anchor to node and then addnode to scene
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+        let grid = FloorNode(anchor: anchor as! ARPlaneAnchor)
+        self.grids.append(grid)
+        node.addChildNode(grid)
+        
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
 //        print("New Planeanchor found with extent \(anchorPlane.extent)")
 
-        let floor = FloorNode.createFloor(anchor: anchorPlane)
-        node.addChildNode(floor)
+//        floor = FloorNode.createFloor(anchor: anchorPlane)
+//        node.addChildNode(floor!)
     }
 
-    //Deleted the node and add another while moving
+
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+        
+        let grid = self.grids.filter { grid in
+            return grid.anchor.identifier == anchor.identifier
+            }.first
+        
+        guard let foundGrid = grid else {
+            return
+        }
+        
+        foundGrid.update(anchor: anchor as! ARPlaneAnchor)
+        
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
 //        print("Planeanchor updated with extent \(anchorPlane.extent)")
-        removeNodeWithString(named: "floor")
-        let floor = FloorNode.createFloor(anchor: anchorPlane)
-        node.addChildNode(floor)
+//        removeNodeWithString(named: "floor")
+//        let floor = FloorNode.createFloor(anchor: anchorPlane)
+//        node.addChildNode(floor)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+//        let floor  = FloorNode.createFloor(anchor: anchorPlane)
+//        node.addChildNode(floor)
     }
     
     //Deletes node if it is under 2.5 meters down
@@ -243,9 +280,11 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     //Updating camera pos when rendering scene
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
 //        currentCameraPosition = getCurrentCamPos(sceneView: arView)
-        currentCameraPosition = Camera.getCurrentCamPos(sceneView: arView)
+        
         
         DispatchQueue.main.async {
+            
+            self.currentCameraPosition = Camera.getCurrentCamPos(sceneView: self.arView)
         
             let pointer = SphereNode.createSphere(atPosition: self.currentCameraPosition!, withcolor: .white)
             pointer.name = "pointer"
@@ -261,6 +300,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     
     
     // MARK: - ScenePhysicsDelegate
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
     
     }
@@ -275,6 +315,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
         return true
     }
     
+    // MARK: - TouchDelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
