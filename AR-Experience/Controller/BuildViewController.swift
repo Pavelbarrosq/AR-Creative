@@ -23,6 +23,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @IBOutlet var sizeTextFields: [UITextField]!
     @IBOutlet weak var arView: ARSCNView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
     
     var grids = [FloorNode]()
     
@@ -88,7 +89,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             sizeTextFields.forEach { (field) in
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut, animations: {
                     field.isHidden = false
-//                    self.view.layoutIfNeeded()
+                    self.editBarButton.title = "Save"
                     self.firstPress = false
                 }, completion: nil)
                 
@@ -97,7 +98,7 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
             sizeTextFields.forEach { (field) in
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut, animations: {
                     field.isHidden = true
-//                    self.view.layoutIfNeeded()
+                    self.editBarButton.title = "Edit"
                     self.firstPress = true
                     
                     guard let text = field.text ,let name = field.placeholder, let type = SetSize(rawValue: name) else {return}

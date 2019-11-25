@@ -11,6 +11,8 @@
 		CD2F27D4237C4D15004E5FF9 /* FloorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */; };
 		CD2F27D6237C4F35004E5FF9 /* WallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D5237C4F35004E5FF9 /* WallNode.swift */; };
 		CD2F27D8237C5595004E5FF9 /* SphereNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F27D7237C5595004E5FF9 /* SphereNode.swift */; };
+		CD339B83238C2A7B00000DD4 /* SelectionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD339B82238C2A7B00000DD4 /* SelectionObject.swift */; };
+		CD339B85238C2E1D00000DD4 /* ObjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD339B84238C2E1D00000DD4 /* ObjectCell.swift */; };
 		CD3E23CA2372D24500ECD967 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3E23C92372D24500ECD967 /* Extensions.swift */; };
 		CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDFC336D2369DAB7006A91AF /* Start.storyboard */; };
 		CD4CD9252385428E000BE73B /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4CD9242385428E000BE73B /* HapticFeedback.swift */; };
@@ -18,6 +20,7 @@
 		CD5E168A2375B6E40006448A /* Build.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16882375B6E30006448A /* Build.storyboard */; };
 		CD5E168C2375BB000006448A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5E168B2375BB000006448A /* StartViewController.swift */; };
 		CD6985E7237341B000ECA2DD /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CD6985E6237341B000ECA2DD /* art.scnassets */; };
+		CDDCF56D238C33BB00290A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD5E16862375B5EC0006448A /* Assets.xcassets */; };
 		CDF0548923780A190060F800 /* Paint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF0548723780A190060F800 /* Paint.storyboard */; };
 		CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF0548A23780A790060F800 /* PaintViewController.swift */; };
 		CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC33672369DAB7006A91AF /* AppDelegate.swift */; };
@@ -31,6 +34,8 @@
 		CD2F27D3237C4D15004E5FF9 /* FloorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorNode.swift; sourceTree = "<group>"; };
 		CD2F27D5237C4F35004E5FF9 /* WallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallNode.swift; sourceTree = "<group>"; };
 		CD2F27D7237C5595004E5FF9 /* SphereNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereNode.swift; sourceTree = "<group>"; };
+		CD339B82238C2A7B00000DD4 /* SelectionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionObject.swift; sourceTree = "<group>"; };
+		CD339B84238C2E1D00000DD4 /* ObjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell.swift; sourceTree = "<group>"; };
 		CD3E23C92372D24500ECD967 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CD4CD9242385428E000BE73B /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		CD4CD9262385461B000BE73B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
@@ -93,6 +98,8 @@
 				CD2F27D7237C5595004E5FF9 /* SphereNode.swift */,
 				CD4CD9242385428E000BE73B /* HapticFeedback.swift */,
 				CD4CD9262385461B000BE73B /* Camera.swift */,
+				CD339B82238C2A7B00000DD4 /* SelectionObject.swift */,
+				CD339B84238C2E1D00000DD4 /* ObjectCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 				CD6985E7237341B000ECA2DD /* art.scnassets in Resources */,
 				CD5E168A2375B6E40006448A /* Build.storyboard in Resources */,
 				CD4812EE2375C29200B86F35 /* Start.storyboard in Resources */,
+				CDDCF56D238C33BB00290A41 /* Assets.xcassets in Resources */,
 				CDF0548923780A190060F800 /* Paint.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,8 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD5E168C2375BB000006448A /* StartViewController.swift in Sources */,
+				CD339B83238C2A7B00000DD4 /* SelectionObject.swift in Sources */,
 				CDF0548B23780A790060F800 /* PaintViewController.swift in Sources */,
 				CD4CD9252385428E000BE73B /* HapticFeedback.swift in Sources */,
+				CD339B85238C2E1D00000DD4 /* ObjectCell.swift in Sources */,
 				CD2F27D4237C4D15004E5FF9 /* FloorNode.swift in Sources */,
 				CDFC336C2369DAB7006A91AF /* BuildViewController.swift in Sources */,
 				CDFC33682369DAB7006A91AF /* AppDelegate.swift in Sources */,

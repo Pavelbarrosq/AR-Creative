@@ -9,32 +9,47 @@
 import UIKit
 
 class StartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    var titleArray: NSArray = []
-    var imageArray: NSArray = []
-    var descriptionArray: NSArray = []
-    
+
     @IBOutlet var tableView: UITableView!
+    
+    var objectArray: [SelectionObject] = []
+    
     override func viewDidLoad() {
+        
+        objectArray = addToArray()
+        
+        title = "AR-Create"
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        titleArray = ["Build", "Paint"]
-        descriptionArray = ["Be creative and build stuff", "Paint in the 3d world"]
+        
     }
     
+    func addToArray() -> [SelectionObject] {
+        var placeholderArray: [SelectionObject] = []
+        
+        let buildObject = SelectionObject(title: "Build", image: #imageLiteral(resourceName: "Cube"))
+        let paintObject = SelectionObject(title: "Paint", image: #imageLiteral(resourceName: "Palette"))
+        
+        placeholderArray.append(buildObject)
+        placeholderArray.append(paintObject)
+        
+        return placeholderArray
+    }
     
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titleArray.count
+        return objectArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = titleArray[indexPath.row] as? String
+        let object = objectArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ObjectCell
         
-        return cell!
+        cell.setObject(object: object)
+    
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
