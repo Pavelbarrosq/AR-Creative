@@ -144,7 +144,6 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
     @objc func didRotate(gesture: UIRotationGestureRecognizer) {
         switch gesture.state {
         case .changed:
-            print("ROTATION!!!!")
             nodeToRotate?.physicsBody = .static()
             nodeToRotate?.eulerAngles.y = Float(gesture.rotation)
             rotation = Float(gesture.rotation)
@@ -169,31 +168,28 @@ class BuildViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContac
                     
                     let results = arView.hitTest(arView.center, options: nil)
                         if results.first?.node.name == "cube" {
-                        haptikFeedback?.impactOccurred()
-                        isNodeTouched = true
+                            haptikFeedback?.impactOccurred()
+                            isNodeTouched = true
+                            nodeTouched = results.first?.node
+                            nodeTouched?.physicsBody = .static()
                         }
                     
                     }
                case .changed:
                     if isNodeTouched == true {
-                        let centerMark = arView.center
-                        let hitTest = arView.hitTest(centerMark, options: nil)
-                        
-                        if let cube = hitTest.first?.node {
-                           if cube.name == "cube" {
-                               nodeTouched = hitTest.first?.node
-                               nodeTouched?.physicsBody = .static()
-                               nodeTouched?.position = desiredPosition ?? SCNVector3Zero
-                            }
-                        }
+
+                        nodeTouched?.position = desiredPosition ?? SCNVector3Zero
+                        nodeTouched?.physicsBody?.resetTransform()
                     }
                     
                     
                case .ended:
-                    desiredPosition = nil
+                 //   desiredPosition = nil
                     haptikFeedback = nil
                     nodeTouched?.physicsBody = .dynamic()
                     isNodeTouched = false
+                    nodeTouched?.physicsBody?.resetTransform()
+                    
             
                default:
                    break
